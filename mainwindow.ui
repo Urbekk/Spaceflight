@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>703</height>
+    <width>618</width>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,75 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="4">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButtonNewGame">
+      <property name="text">
+       <string>Nowa gra</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="pushButtonGraph">
+      <property name="text">
+       <string>Wykresy</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButtonSettings">
+      <property name="text">
+       <string>Ustawienia</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label">
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>160</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>70</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="res.qrc">:/images/dot.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QPushButton" name="pushButtonPause">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+      <property name="text">
+       <string>Pauza</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>Paliwo</string>
@@ -932,44 +1000,13 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="pushButtonSettings">
-      <property name="text">
-       <string>Ustawienia</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="pushButtonPause">
-      <property name="focusPolicy">
-       <enum>Qt::ClickFocus</enum>
-      </property>
-      <property name="text">
-       <string>Pauza</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="pushButtonGraph">
-      <property name="text">
-       <string>Wykresy</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="4" alignment="Qt::AlignHCenter">
+    <item row="1" column="0" colspan="5" alignment="Qt::AlignHCenter">
      <widget class="QGraphicsView" name="graphicsView">
       <property name="minimumSize">
        <size>
         <width>600</width>
         <height>0</height>
        </size>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButtonNewGame">
-      <property name="text">
-       <string>Nowa gra</string>
       </property>
      </widget>
     </item>
@@ -980,13 +1017,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
+     <width>618</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

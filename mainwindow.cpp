@@ -130,6 +130,13 @@ void MainWindow::connection(QString string)
     this->device->setFlowControl(QSerialPort::NoFlowControl);
     connect(this->device, SIGNAL(readyRead()), this, SLOT(readFromPort()));
     }
+    ui->label->setVisible(false);
+}
+
+void MainWindow::disconnect(){
+    ui->label->setVisible(true);
+    device->close();
+    //qDebug() << "poszlo";
 }
 
 void MainWindow::readFromPort() {
@@ -174,6 +181,7 @@ void MainWindow::on_pushButtonSettings_clicked()
 {
     oknoU->show();
     connect(oknoU,SIGNAL(wyborcom(QString)),this,SLOT(connection(QString)));
+    connect(oknoU,SIGNAL(odlacz()),this,SLOT(disconnect()));
 }
 
 void MainWindow::on_pushButtonPause_toggled(bool checked)

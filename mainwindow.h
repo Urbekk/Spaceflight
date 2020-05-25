@@ -40,6 +40,7 @@ private slots:
     void collectFuel();
     void gameover();
     void connection(QString string);
+    void disconnect();
     void readFromPort();
     //void clearData();
     void on_pushButtonNewGame_clicked();
