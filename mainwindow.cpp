@@ -4,8 +4,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow){
     srand( time( NULL ) );
     ui->setupUi(this);
     ui->pushButtonPause->setCheckable(true);
@@ -13,14 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
     gameInit();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
 /* * * * * * * GAME SETTINGS * * * * * * * * */
 void MainWindow::gameInit(){
-    oknoU = new settings();
+    windowSettings = new Settings();
     scene = new QGraphicsScene();
     ui->graphicsView->setScene(scene);
     ui->graphicsView->show();
@@ -57,24 +55,21 @@ void MainWindow::repeatableParameters(){
 }
 
 /* * * * * * * NEW GAME * * * * * * * * */
-void MainWindow::on_pushButtonNewGame_clicked()
-{
+void MainWindow::on_pushButtonNewGame_clicked(){
     scene->clear();
     repeatableParameters();
     ui->progressBar->setValue(gas);
-    flaga=0;
+    flag=0;
 }
 
-void MainWindow::spawnA()
-{
+void MainWindow::spawnA(){
     asteroid = new Asteroid(30+rand()%50,40);
     scene->addItem(asteroid);
     connect(this,SIGNAL(freeze()),asteroid,SLOT(stopmove()));
     connect(this,SIGNAL(resume()),asteroid,SLOT(startmove()));
 }
 
-void MainWindow::spawnF()
-{
+void MainWindow::spawnF(){
     fuel = new Fuel(30,40);
     scene->addItem(fuel);
     connect(fuel,SIGNAL(collect()),this,SLOT(collectFuel()));
@@ -82,8 +77,7 @@ void MainWindow::spawnF()
     connect(this,SIGNAL(resume()),fuel,SLOT(startmove()));
 }
 
-void MainWindow::collectFuel()
-{
+void MainWindow::collectFuel(){
     if(gas>85) gas = 85;
     gas=gas+15;
     ui->progressBar->setValue(gas);
@@ -101,34 +95,33 @@ void MainWindow::stoptimers(){
     timer->stop();
     timerpoints->stop();
     timerfuel->stop();
-    flaga=1;
+    flag=1;
 }
 
 void MainWindow::gameover(){
     if (gas > 0){
-    oknoC = new crashpopup();
-    oknoC->show();
+        windowCrash = new Crashpopup();
+        windowCrash->show();
     }
     else {
-    oknoF = new overpopup();
-    oknoF->show();
+        windowFuel = new Overpopup();
+        windowFuel->show();
     }
 }
 
-void MainWindow::connection(QString string)
-{
+void MainWindow::connection(QString string){
     QStringList portList = string.split("\t");
     qDebug() << portList;
     QString portName = portList.first();
     qDebug() << portName;
     this->device->setPortName(portName);
     if(device->open(QSerialPort::ReadWrite)) {
-    this->device->setBaudRate(QSerialPort::Baud9600);
-    this->device->setDataBits(QSerialPort::Data8);
-    this->device->setParity(QSerialPort::NoParity);
-    this->device->setStopBits(QSerialPort::OneStop);
-    this->device->setFlowControl(QSerialPort::NoFlowControl);
-    connect(this->device, SIGNAL(readyRead()), this, SLOT(readFromPort()));
+        this->device->setBaudRate(QSerialPort::Baud9600);
+        this->device->setDataBits(QSerialPort::Data8);
+        this->device->setParity(QSerialPort::NoParity);
+        this->device->setStopBits(QSerialPort::OneStop);
+        this->device->setFlowControl(QSerialPort::NoFlowControl);
+        connect(this->device, SIGNAL(readyRead()), this, SLOT(readFromPort()));
     }
     ui->label->setVisible(false);
 }
@@ -151,9 +144,9 @@ void MainWindow::readFromPort() {
             dataMCU[i]=list.at(i+1).toInt();
             sum += dataMCU[i];
         }
-        if((sum%128) == list.at(4).toInt()){
-            if (flaga==0)
-                player->moveACC(dataMCU[0],dataMCU[1],dataMCU[2]);
+        if((sum%128) == list.at(4).toUInt()){
+            if (flag==0)
+                player->moveACC(dataMCU[0],dataMCU[1]);
             pastdata.append(dataMCU);
             if (drawing == 1){
                 emit sendNow(dataMCU);
@@ -162,39 +155,30 @@ void MainWindow::readFromPort() {
     }
 }
 
-/*void MainWindow::clearData(){
-    pastdata.clear();
-    qDebug() << pastdata.size() << "porzadek";
-    drawing = 0;
-}*/
-
-void MainWindow::on_pushButtonGraph_clicked()
-{
-    oknoW = new graphs(pastdata);
-    oknoW -> show();
+void MainWindow::on_pushButtonGraph_clicked(){
+    windowGraph = new Graphs(pastdata);
+    windowGraph -> show();
     drawing = 1;
-    connect(this,SIGNAL(sendNow(QVector<int>)),oknoW,SLOT(newData(QVector<int>)));
+    connect(this,SIGNAL(sendNow(QVector<int>)),windowGraph,SLOT(newData(QVector<int>)));
     //connect(oknoW,SIGNAL(clearD()),this,SLOT(clearData()));
 }
 
-void MainWindow::on_pushButtonSettings_clicked()
-{
-    oknoU->show();
-    connect(oknoU,SIGNAL(wyborcom(QString)),this,SLOT(connection(QString)));
-    connect(oknoU,SIGNAL(odlacz()),this,SLOT(disconnect()));
+void MainWindow::on_pushButtonSettings_clicked(){
+    windowSettings->show();
+    connect(windowSettings,SIGNAL(setCom(QString)),this,SLOT(connection(QString)));
+    connect(windowSettings,SIGNAL(disconnect()),this,SLOT(disconnect()));
 }
 
-void MainWindow::on_pushButtonPause_toggled(bool checked)
-{
+void MainWindow::on_pushButtonPause_toggled(bool checked){
     if (checked){
-        flaga = 1;
-    emit freeze();
-    timer->stop();
-    timerpoints->stop();
-    timerfuel->stop();
+        flag = 1;
+        emit freeze();
+        timer->stop();
+        timerpoints->stop();
+        timerfuel->stop();
     }
     else{
-        flaga = 0;
+        flag = 0;
         emit resume();
         timerpoints->start(1000);
         timer->start(2000);

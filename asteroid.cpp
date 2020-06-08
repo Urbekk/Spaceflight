@@ -1,7 +1,6 @@
 #include "asteroid.h"
 
-Asteroid::Asteroid(int size, int velocity)
-{
+Asteroid::Asteroid(int size, int velocity){
     setPos(rand()%600,-30);
     setPixmap(QPixmap(":/images/asteroida1.png").scaled(size,size));
 
@@ -10,8 +9,7 @@ Asteroid::Asteroid(int size, int velocity)
     timer->start(velocity);
 }
 
-void Asteroid::move()
-{
+void Asteroid::move(){
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for (int i = 0, n = colliding_items.size(); i < n; ++i){
         if (typeid(*(colliding_items[i])) == typeid(Player)){
@@ -23,7 +21,6 @@ void Asteroid::move()
             return;
         }
     }
-
     setPos(x(),y()+3);
     if (pos().y() > 600){
         scene()->removeItem(this);

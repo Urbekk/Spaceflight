@@ -13,16 +13,16 @@ namespace Ui {
 class settings;
 }
 
-class settings : public QWidget
+class Settings : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit settings(QWidget *parent = nullptr);
-    ~settings();
+    explicit Settings(QWidget *parent = nullptr);
+    ~Settings();
 
 private slots:
-    void on_pushButton_clicked();
+    //void on_pushButton_clicked();
 
     void on_pushButtonSearch_clicked();
 
@@ -30,8 +30,8 @@ private slots:
 
     void on_pushButtonDisconnect_clicked();
 signals:
-    void wyborcom(QString string);
-    void odlacz();
+    void setCom(QString string);
+    void disconnect();
 private:
     Ui::settings *ui;
     QSerialPort *device;

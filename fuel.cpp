@@ -1,7 +1,6 @@
 #include "fuel.h"
 
-Fuel::Fuel(int size, int velocity)
-{
+Fuel::Fuel(int size, int velocity){
 
     setPos(rand()%600,-50);
     setPixmap(QPixmap(":/images/oil.png").scaled(size,size));
@@ -12,8 +11,7 @@ Fuel::Fuel(int size, int velocity)
 }
 
 
-void Fuel::move()
-{
+void Fuel::move(){
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for (int i = 0, n = colliding_items.size(); i < n; ++i){
         if (typeid(*(colliding_items[i])) == typeid(Player)){

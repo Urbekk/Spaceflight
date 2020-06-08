@@ -1,7 +1,6 @@
 #include "player.h"
 
-Player::Player()
-{
+Player::Player(){
 
 }
 
@@ -10,16 +9,13 @@ Player::~Player(){
     emit crash();
 }
 
-
-
-void Player::keyPressEvent(QKeyEvent *event)
-{
+/*void Player::keyPressEvent(QKeyEvent *event){
     if(event->key() == Qt::Key_Left){
-        if(x()>0)
+        if(x()>-40)
         setPos(x()-10,y());
     }
     if(event->key() == Qt::Key_Right){
-        if(x()+40<800)
+        if(x()+80<800)
         setPos(x()+10,y());
     }
     if(event->key() == Qt::Key_Up){
@@ -27,18 +23,18 @@ void Player::keyPressEvent(QKeyEvent *event)
         setPos(x(),y()-10);
     }
     if(event->key() == Qt::Key_Down){
-        if(y()+100<600)
+        if(y()+50<600)
         setPos(x(),y()+10);
     }
-}
+}*/
 
-void Player::moveACC(int xacc, int yacc, int zacc){
+void Player::moveACC(int & xacc, int & yacc){
     if(yacc<-2000){
-        if(x()>0)
+        if(x()>-40)
             setPos(x()-(abs(yacc)/1500),y());
     }
     if(yacc>2000){
-        if(x()+40<800)
+        if(x()+80<800)
             setPos(x()+(yacc/1500),y());
     }
     if(xacc<-2000){

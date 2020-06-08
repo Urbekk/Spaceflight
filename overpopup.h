@@ -7,18 +7,26 @@ namespace Ui {
 class overpopup;
 }
 
-class overpopup : public QWidget
+class Overpopup : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit overpopup(QWidget *parent = nullptr);
-    ~overpopup();
+    explicit Overpopup(QWidget *parent = nullptr);
+    ~Overpopup();
 
 private slots:
+    /*!
+     * \brief
+     * Zamknięcie informacyjnego okna.
+     */
     void on_pushButton_clicked();
 
 private:
+    /*!
+     * \brief
+     * Wskaźnik na okno końca rozgrywki.
+     */
     Ui::overpopup *ui;
 };
 

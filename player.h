@@ -1,5 +1,5 @@
-#ifndef MYRECT_H
-#define MYRECT_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include <QGraphicsRectItem>
 #include <QKeyEvent>
@@ -7,15 +7,31 @@
 
 
 class Player: public QObject, public QGraphicsPixmapItem{
-        Q_OBJECT
+    Q_OBJECT
 public:
     Player();
     ~Player();
-    void keyPressEvent(QKeyEvent * event);
-    void moveACC(int x, int y, int z);
+    //void keyPressEvent(QKeyEvent * event);
+    /*!
+     * \brief
+     * Zamiana surowych danych z akcelerometru na sterowanie postacia gracza.
+     * \param [in] x
+     * Odczyt z osi x.
+     * \param [in] y
+     * Odczyt z osi y.
+     */
+    void moveACC(int & x, int & y);
 signals:
-void stop();
-void crash();
+    /*!
+     * \brief
+     * Sygnał połączony ze slotem odpowiedzialnym za zatrzymanie systemu zliczania punktów.
+     */
+    void stop();
+    /*!
+     * \brief
+     * Sygnał połączony ze slotem odpowiedzialnym za pokazanie okna konca rozgrywki w przypadku przegranej.
+     */
+    void crash();
 public slots:
 
 

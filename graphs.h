@@ -9,22 +9,40 @@ namespace Ui {
 class graphs;
 }
 
-class graphs : public QWidget
+class Graphs : public QWidget
 {
     Q_OBJECT
 private:
+    /*!
+     * \brief
+     * Dolna granica osi czasu (zakres wykresu)
+     */
     double start;
-
 public:
-    explicit graphs(QVector<QVector<int>> data,QWidget *parent = nullptr);
-    ~graphs();
+    /*!
+     * \brief
+     * Przeliczanie danych wejściowych na jednostke [g] oraz dodanie wszystkich zaległych pomiarów na wykres.
+     * \param [in] data
+     * Dwu wymiarowy wektor przechowujący wszystkie surowe dane otrzymane od mikrokontrolera.
+     */
+    explicit Graphs(QVector<QVector<int>> & data,QWidget *parent = nullptr);
+    ~Graphs();
 signals:
-    //void clearD();
 private slots:
-    void newData(QVector<int> data);
+    /*!
+     * \brief
+     * Dodawanie nowych punktów na wykres, przeliczanie danych na jednostke [g]
+     * \param [in] data
+     * Wektor surowych danych z akcelerometru (oś x, y, z)
+     */
+    void newData(QVector<int> & data);
 
 
 private:
+    /*!
+     * \brief
+     * Wskaźnik na okno wykresów.
+     */
     Ui::graphs *ui;
 };
 

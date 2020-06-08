@@ -7,18 +7,26 @@ namespace Ui {
 class crashpopup;
 }
 
-class crashpopup : public QWidget
+class Crashpopup : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit crashpopup(QWidget *parent = nullptr);
-    ~crashpopup();
+    explicit Crashpopup(QWidget *parent = nullptr);
+    ~Crashpopup();
 
 private slots:
+    /*!
+     * \brief
+     * Zamknięcie informacyjnego okna.
+     */
     void on_pushButton_clicked();
 
 private:
+    /*!
+     * \brief
+     * Wskaźnik na okno końca rozgrywki.
+     */
     Ui::crashpopup *ui;
 };
 
